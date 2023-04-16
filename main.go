@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,13 +22,18 @@ var albums = []album{
 	{ID: "3", Title: "XYZ", Artist: "DHONI", Price: 3030},
 }
 
+var port = 8000
+
 func main() {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	router.GET("/albums/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
 	router.DELETE("/albums/:id", deleteAlbumByID)
-	router.Run("localhost:8080")
+
+	apiRoute := fmt.Sprintf("localhost:%v", port)
+
+	router.Run(apiRoute)
 }
 
 // getAlbums responds with the list of all albums as JSON.
